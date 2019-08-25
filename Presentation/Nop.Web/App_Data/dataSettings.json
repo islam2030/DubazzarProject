@@ -1,0 +1,5 @@
+{
+  "DataProvider": "sqlserver",
+  "DataConnectionString": "Data Source=marketplace20200.database.windows.net;Initial Catalog=pavillion_v4;Integrated Security=False;Persist Security Info=False;User ID=dubazzar;Password=P@ssw0rd",
+  "RawDataSettings": {}
+}

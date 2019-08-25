@@ -1,0 +1,32 @@
+﻿
+@model IEnumerable<Nop.Core.Domain.Buckets.Bucket>
+
+@{
+    Layout = "_ColumnsTwo";
+
+
+    Html.AddTitleParts(T("PageTitle.CustomerProductReviews").Text);
+
+    Html.AppendPageCssClassParts("html-account-page");
+    Html.AppendPageCssClassParts("html-my-product-reviews-list-page");
+
+}
+
+@section left{
+
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.ProductReviews })
+
+}
+
+
+<div class="page account-page my-product-reviews-list-page">
+
+    <div class="page-body">
+        test
+
+
+    </div>
+</div>
+
+
+

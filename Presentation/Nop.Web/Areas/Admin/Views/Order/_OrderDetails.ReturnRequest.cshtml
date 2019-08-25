@@ -1,0 +1,112 @@
+﻿@model OrderModel
+
+@using Nop.Core.Domain.Tax;
+@using Nop.Core.Domain.Catalog;
+
+<div class="panel-group">
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_order_details_products_top", additionalData = Model.Id })
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-12" style="overflow-x: auto;">
+                    <table class="table table-hover table-bordered text-center" border="1">
+                        <thead>
+                            <tr>
+                                <th>@T("Vendor Name")</th>
+                                <th>@T("Product Name")</th>
+                                <th>@T("Quantity")</th>
+                                <th>@T("Reason For Return")</th>
+                                <th>@T("Requested Action")</th>
+                                <th>@T("Refunded Value")</th>
+                                <th>@T("Return Status")</th>
+                                <th>@T("Edit")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                      {
+                           if(item.ReturnRequests.Count > 0)
+                            {
+                            @for (var i = 0; i < item.ReturnRequests.Count; i++)
+                                            {
+                            var price= @item.ReturnRequests[i].returnquantity*@item.ReturnRequests[i].returnproductprice;
+                            var returnorderpay = @item.ReturnPay;
+
+                            <tr>
+                                <td>
+                                    @item.VendorName
+                                </td>
+                                <td style="text-align: left; width: 15%;">
+                                    @item.ProductName
+
+                                </td>
+                                <td style="text-align: left; width: 15%;">
+                                    @item.ReturnRequests[i].returnquantity
+                                </td>
+                                <td style="text-align: left; width: 15%;">
+                                    @item.ReturnRequests[i].returnreasonforreturn
+                                </td>
+                                <td style="text-align:left; width:15%;">
+                                    @item.ReturnRequests[i].returnrequestedaction
+                                </td>
+                                <td>
+                                    @price
+                                </td>
+                                <td>
+                                    @if(@item.ReturnRequests[i].returnrequestedaction=="Store Credit")
+                                  {
+                                    @if (returnorderpay == true)
+                                     {
+                                    <span class="grid-report-item green"> @T("Refunded")</span>
+
+                                     }
+                                     else
+                                     {
+                                    <span class="grid-report-item  yellow ">
+                                        @T("Pending")
+                                    </span>
+                                     }
+                                   }
+                                    else if(@item.ReturnRequests[i].returnrequestedaction=="Replacement")
+                                    {
+                                    <span class="grid-report-item  yellow ">
+                                        @T("Replace Product")
+                                    </span>
+
+                                    }
+                                    else if(@item.ReturnRequests[i].returnrequestedaction=="Repair")
+                                    {
+
+                                    <span class="grid-report-item  yellow ">
+                                        @T("Repair Product")
+                                    </span>
+                                    }
+
+                                </td>
+                                <td>
+                                    @if(@item.ReturnRequests[i].returnrequestedaction=="Store Credit" && returnorderpay == false)
+                                   {
+                                    <a asp-action="SetReturnRequestOrderPaid" asp-route-orderitemId="@item.Id" asp-route-orderId="@Model.Id" class="btn bg-purple">
+                                        @T("Refund")
+                                    </a>
+                                    }
+                                    else
+                                    {
+                                    <span class="grid-report-item  red ">
+                                        @T("No Action")
+                                    </span>
+                                    }
+                                </td>
+                            </tr>
+                            }
+                                    }
+                                    }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_order_details_products_bottom", additionalData = Model.Id })
+</div>
+

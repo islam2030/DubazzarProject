@@ -1,0 +1,96 @@
+﻿@model Nop.Web.Models.Buckets.BucketModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="container p-0">
+    <div class="row w-100">
+        <div class="col-lg-9 col-md-12">
+            <form asp-action="Create" class="bg-white">
+                <div class="gradient-text1">
+                    <h4> Create Bucket</h4>
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-row">
+                    <div class="inputs form-group col-md-6">
+                        <label class="control-label">@T("Bucket Title*")</label>
+                        <input asp-for="BucketTitle" class="form-control " />
+                        <span asp-validation-for="BucketTitle" class="text-danger"></span>
+                    </div>
+                    <div class="inputs form-group col-md-6">
+                        <label class="control-label"> Your List Name </label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="inputs form-group col-md-12">
+                        <label class="control-label"> Shopping Address </label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="date inputs form-group col-md-6">
+                        <label>@T("End Date*")</label>
+                        <input asp-for="DueDate" class="form-control" />
+                        <span asp-validation-for="DueDate" class="text-danger"></span>
+                    </div>
+                    <div class="inputs from-group col-md-6">
+                        <label class="control-label"> the gift list for you </label>
+                        <select asp-for="BucketTypeId" asp-items="Model.bucketTypes"></select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="inputs form-group col-md-6">
+                        <label class="control-label">@T("Bucket Type")</label>
+                        <select asp-for="BucketTypeId" asp-items="Model.bucketTypes"></select>
+                        <span asp-validation-for="BucketTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="inputs form-group col-md-6">
+                        <label class="control-label"> Tag With </label>
+                        <input type="text" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="inputs from-group">
+                    <div class="upload_image">
+                        <div class="image">
+                            <img src="~/images/wedding.jpg" class="w-100 d-block" alt="" />
+                        </div>
+                        <div class="prev_image"></div>
+                        <div class="input">
+                            <input name="input" id="file" type="file">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inputs form-group">
+                    <label class="control-label">@T("Bucket Descriptions")</label>
+                    <textarea asp-for="BucketDesc" class="form-control"></textarea>
+                    <span asp-validation-for="BucketDesc" class="text-danger"></span>
+                </div>
+
+                <div class="inputs form-group">
+                    <div class="checkbox inputs">
+                        <label class="control-label inputs">
+                            @T("Publish")
+                            <input asp-for="IsActive" />
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn_primary" />
+                </div>
+            </form>
+    </div>
+        <div class="col-lg-3 col-md-12"></div>
+    </div>
+</div>
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@*@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@

@@ -1,0 +1,158 @@
+﻿@model OrderModel
+
+@using Nop.Core.Domain.Tax;
+@using Nop.Core.Domain.Catalog;
+
+<div class="panel-group">
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_order_details_products_top", additionalData = Model.Id })
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-12" style="overflow-x: auto;">
+                    @*only grid for vendor finance details*@
+                    <table class="table table-hover table-bordered text-center" border="1">
+                        <thead>
+                            <tr>
+                                <th>@T("Vendor Name")</th>
+                                <th>@T("Total Product Price")</th>
+                                <th>@T("Total Commission Fee")</th>
+                                <th>@T("Total Pickup Fee")</th>
+
+                                @*Finance 11/11/2018*@
+                                <th>@T("Penalities")</th>
+                                <th>@T("Total Amount")</th>
+                                <th>@T("Finance Status")</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var j1 = 0;
+                                var totalpriceforvendor1 = decimal.Zero;
+                                var totalpickfeeforvendor1 = decimal.Zero;
+                                var vendororderpay1 = false;
+                                var vendororderpayid1 = 0;
+                                var totalproductprice = decimal.Zero;
+                                var totalcommissionfee = decimal.Zero;
+                       
+
+                                @*Finance 11/11/2018*@
+                                var vendorpenalities = decimal.Zero;
+                                string[] arraywithvendorname1 = new string[Model.Items.Count()];
+                                @foreach (var item in Model.Items)
+                                {
+
+                                    if (!arraywithvendorname1.Contains(item.VendorName))
+                                    {
+                                        arraywithvendorname1[j1] = item.VendorName;
+                                        j1++;
+                                    }
+                                }
+
+                                for (var k = 0; k < j1; k++)
+                                {
+                                    @*Finance 11/11/2018*@
+                                    vendorpenalities = decimal.Zero;
+                                    totalpriceforvendor1 = decimal.Zero;
+                                    totalpickfeeforvendor1 = decimal.Zero;
+                                    vendororderpay1 = false;
+                                    vendororderpayid1 = 0;
+                                    totalproductprice = decimal.Zero;
+                                    totalcommissionfee = decimal.Zero;
+                                  
+
+                                    @foreach (var item in Model.Items)
+                                    {
+
+                                        if (item.VendorName == arraywithvendorname1[k])
+                                        {
+                                            totalpriceforvendor1 += item.ItemCost * item.Quantity;
+                                            totalpickfeeforvendor1 = item.PickFee;
+                                            vendororderpay1 = item.OrderPay;
+                                            vendororderpayid1 = item.VendorId;
+                                            totalproductprice += item.ItemPrice * item.Quantity;
+                                            totalcommissionfee += (item.ItemPrice - item.ItemCost) * item.Quantity;
+                                            @*Finance 11/11/2018*@
+                                            vendorpenalities += item.Penalities;
+
+                                        }
+
+
+
+                                    }
+                                    totalpriceforvendor1 -= totalpickfeeforvendor1;
+                                    @*Finance 11/11/2018*@
+                                    totalpriceforvendor1 -= vendorpenalities;
+
+
+                            <tr>
+                                <td>
+                                    @*Finance 11/8/2018*@
+                                    <a href="~/Admin/Vendor/Edit/@vendororderpayid1">
+                                        @arraywithvendorname1[k]
+                                    </a>
+                                </td>
+                                <td style="text-align: left; width: 15%;">
+                                    @totalproductprice
+                                </td>
+                                <td style="text-align: left; width: 15%;">
+                                    - @totalcommissionfee
+                                </td>
+                                <td style="text-align: left; width: 15%;">
+                                    - @totalpickfeeforvendor1
+                                </td>
+
+                                @*Finance 11/11/2018*@
+                                <td style="text-align:left; width:15%;">
+                                    - @vendorpenalities
+                                </td>
+
+                                <td style="text-align: left; width: 15%;">
+                                    @totalpriceforvendor1
+                                </td>
+                                <td>
+                                    @if (vendororderpay1 == true)
+                                    {
+                                        <span class="grid-report-item green"> @T("Paid")</span>
+
+                                    }
+                                    else
+                                    {
+                                        @if (!Model.IsLoggedInAsVendor)
+                                        {
+                                            <a asp-action="SetVendorOrderPaid" asp-route-orderId="@Model.Id" asp-route-VendorId="@vendororderpayid1" class="btn bg-purple">
+                                                @T("Pay")
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span class="grid-report-item  yellow ">
+                                                @T("Pending")
+                                            </span>
+                                        }
+                                    }
+                                </td>
+
+
+                            </tr>
+
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    @*only grid for vendor finance details*@
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_order_details_products_bottom", additionalData = Model.Id })
+</div>
+
+
+

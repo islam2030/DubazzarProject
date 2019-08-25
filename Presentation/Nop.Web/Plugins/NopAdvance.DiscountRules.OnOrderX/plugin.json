@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Discount requirements",
+  "FriendlyName": "On X Customer Order",
+  "SystemName": "NopAdvance.Plugin.DiscountRules.OnOrderX",
+  "Version": "1.0.0",
+  "SupportedVersions": [ "4.00" ],
+  "Author": "NopAdvance",
+  "DisplayOrder": 1,
+  "FileName": "NopAdvance.Plugin.DiscountRules.OnOrderX.dll",
+  "Description": "This plugin allows you to configure discounts on x customer order"
+}

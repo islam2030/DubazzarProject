@@ -1,0 +1,269 @@
+﻿@model Nop.Core.Domain.Buckets.Bucket
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+@*<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle"> تأكيد الحذف </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                هل انت متأكد من حذف هذة السلعه؟
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary"> حذف </button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="container p-0">
+    <div class="banner">
+        <div class="main-banner">
+            <img src="~/images/wedding.jpg" alt="" />
+        </div>
+        <div class="small-pic">
+            <img src="~/images/wedding.jpg" alt="" />
+        </div>
+    </div>
+    <div class="title_banner text-center">
+        <h5> Our Wedding Gifts List </h5>
+        <p class="desc"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+        <p class="num mb-0"> Number : 520 </p>
+        <p class="author mb-0"> gifts by : full name </p>
+        <p class="date"> Event date : 23/ 07 /2019  </p>
+        
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bg-white prev_buckte">
+                <div class="gradient-text1">
+                    <h4>Bucket Details</h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="widget bg-light">
+                            <h5 class="mb-4">@Html.DisplayFor(model => model.BucketTitle)</h5>
+                            <ul class="list-unstyled blog-category m-0">
+                                <li>
+                                    @Html.DisplayName("Create Date")
+                                    <span class="float-left">@Html.DisplayFor(model => model.CreateDate)</span>
+                                </li>
+                                <li>
+                                    @Html.DisplayName("End Date")
+                                    <span class="float-left">@Html.DisplayFor(model => model.DueDate)</span>
+                                </li>
+                                <li>
+                                    @Html.DisplayName("Total Amount")
+                                    <span class="float-left">EGP  @Html.DisplayFor(model => model.BucketAmount)</span>
+                                </li>
+                                <li>
+                                    @Html.DisplayName("Status")
+                                    <span class="float-left">@Html.DisplayFor(model => model.Status.status)</span>
+                                </li>
+                                <li>
+                                    @Html.DisplayName("Bucket Type")
+                                    <span class="float-left">@Html.DisplayFor(model => model.BucketType.Type)</span>
+                                </li>
+                                <li>
+                                    @Html.DisplayName("Description")
+                                    <span class="float-left">@Html.DisplayFor(model => model.BucketDesc)</span>
+                                </li>
+                                <li>
+                                    @Html.DisplayName("Published")
+                                    <span class="float-left"> @Html.DisplayFor(model => model.IsActive)</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-8 col-md-12">
+                        <div class="at-share-btn-elements">
+                            <ul>
+                                <li class="facebook">
+                                    <a href="#">
+                                        Facebook
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="messenger">
+                                    <a href="#">
+                                        Messenger
+                                        <i class="fa fa-comment-o"></i>
+                                    </a>
+                                </li>
+                                <li class="WhatsApp">
+                                    <a href="#">
+                                        WhatsApp
+                                        <i class="fa fa-whatsapp"></i>
+                                    </a>
+                                </li>
+                                <li class="twitter">
+                                    <a href="#">
+                                        Twitter
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="gmail">
+                                    <a href="#">
+                                        Gmail
+                                        <i class="fa fa-envelope"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <table class="table table-responsive-md table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Item Name")
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayName("Price")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Quantity")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Total Price")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Add Date")
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BucketItems)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img class="product_img" src="~/images/wedding.jpg" />
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Product.Name)
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Product.Price)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Quantity)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TotalPrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AddDate)
+                                        </td>
+                                        @*<td>*@
+                                            @*<a href="#" class="delete" data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o icons" title="delete"></i></a>*@
+                                            @*@Html.ActionLink("Delete One", "DeleteItem", new { id = item.Id, delType = 1 })
+                                        @Html.ActionLink("Delete All", "DeleteItem", new { id = item.Id, delType = 2 })*@
+                                        @*</td>*@
+
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="pay text-center">
+                            <a href="#" class="btn btn_primary"> Pay </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget bg-light">
+                <h3 class="mb-4 title_widget gradient-text1 text-center"> See Who Pay In Bucket </h3>
+                <ul class="list-unstyled blog-category m-0">
+                    <li>
+                        <div class="media">
+                            <img class="ml-2 img_user" src="~/images/wedding.jpg" alt="" />
+                            <div class="media-body">
+                                <h6 class="mt-0"> mohamed kotb </h6>
+                                12-01-2019
+                            </div>
+                        </div>
+                        <span class="float-left amount"> EGP 2000.00 </span>
+                    </li>
+                    <li>
+                        <div class="media">
+                            <img class="ml-2 img_user" src="~/images/wedding.jpg" alt="" />
+                            <div class="media-body">
+                                <h6 class="mt-0"> mohamed kotb </h6>
+                                12-01-2019
+                            </div>
+                        </div>
+                        <span class="float-left amount"> EGP 2000.00 </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div>*@
+  
+    @*<h4>Items</h4>
+  
+   <button onclick="AjaxCart.SelectBucket('@Model.Id')"> Add Items</button>*@ 
+
+
+    @*<h4>Gifts</h4>
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayName("Gift From")
+                </th>
+
+                <th>
+                    @Html.DisplayName("Date")
+                </th>
+                <th>
+                    @Html.DisplayName("Amount")
+                </th>
+                <th>
+                    @Html.DisplayName("Note")
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Contributions)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer.SystemName)
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>*@
+@*<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>*@

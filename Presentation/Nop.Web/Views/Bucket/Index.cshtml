@@ -1,0 +1,118 @@
+﻿@using Nop.Core
+@model IEnumerable<Nop.Core.Domain.Buckets.Bucket>
+
+@{
+Layout = "_ColumnsTwo";
+
+
+}
+
+@section left
+    {
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.ProductReviews }),
+}
+
+
+<div class="page account-page customer-info-page">
+    <!--  -->
+
+    <div class="page-body">
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle"> تأكيد الحذف </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        هل انت متأكد من حذف هذة السلعه؟
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn_primary"> حذف </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- start content here -->
+
+        <div class="bg-white prev_buckte">
+            <div class="gradient-text1">
+                <h4 class="float-right text-right"> Your Bucket List</h4>
+                <a class="float-left text-left btn btn_primary" asp-action="Create">
+                    <i class="fa fa-plus pl-2"></i>
+                    Create New
+                </a>
+            </div>
+            <table class="table table-md-responsive table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Title")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("End Date")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Total Amount")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Status")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Bucket Type")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Published")
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BucketTitle)
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DueDate.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BucketAmount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status.status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BucketType.Type)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+
+
+                            <td>
+                                <a href="#"><i class="fa fa-eye icons" title="preview"></i></a>
+                                <a href="#"><i class="fa fa-pencil icons" title="edit"></i></a>
+                                <a href="#" class="delete" data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o icons" title="delete"></i></a>
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
